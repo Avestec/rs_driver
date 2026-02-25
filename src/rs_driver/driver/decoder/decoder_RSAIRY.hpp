@@ -314,6 +314,8 @@ inline void DecoderRSAIRY<T_PointCloud>::decodeImuPkt(const uint8_t* packet, siz
     }
     uint8_t acclFsr = 1 << (pkt.acceIFsr + 1);
     float acceUnit = acclFsr / FSR_BASE;
+    // Added by David
+    acceUnit *= 9.80665f; // convert g to m/s^2
 
     this->imuDataPtr_->linear_acceleration_x = u8ArrayToInt32(pkt.acceIx, 4) * acceUnit;
     this->imuDataPtr_->linear_acceleration_y = u8ArrayToInt32(pkt.acceIy, 4) * acceUnit;
